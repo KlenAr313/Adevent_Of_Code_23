@@ -45,23 +45,20 @@ public:
     }
 
     bool in(std::list<Location>::iterator l){
-        //std::cout << l->Min << l->Range << std::endl;
         if(min <= l->Min && l->Min <= max){
-            //std::cout << "in" << std::endl;
             return true;
         }
         return false;
     }
 
     bool needCut(Location& l){
-        //std::cout << l.Min + l.Range << std::endl;
         return (l.Min+l.Range -1) > max;
     }
 
     void convert(Location& l){
         //std::cout << "Before Change: " << l.Min << std::endl;
         l.Min += dif;
-        std::cout << "after Change simp: " << l.Min << std::endl;
+        //std::cout << "after Change simp: " << l.Min << std::endl;
     }
 
     const Location* convertWcut(Location& l){
@@ -69,7 +66,7 @@ public:
         //std::cout << "Before Cut: " << l.Min << std::endl;
         Location *next = l.cut(r);
         l.Min += dif;
-        std::cout << "after Cut: " << l.Min << std::endl;
+        //std::cout << "after Cut: " << l.Min << std::endl;
         return next;
     }
 };
@@ -116,12 +113,12 @@ int main(){
         {
             for(std::vector<Converter>::iterator cit = (*ait)->begin(); cit != (*ait)->end(); ++cit)
             {
-                std::cout << "Check: " << lit->Min << std::endl;
+                //std::cout << "Check: " << lit->Min << std::endl;
                 if(cit->in(lit)){
-                    std::cout << "In Range: " << lit->Min << std::endl;
+                    //std::cout << "In Range: " << lit->Min << std::endl;
                     if(cit->needCut(*lit)){
                         locations.push_back(*(cit->convertWcut(*lit))); 
-                        std::cout << (--locations.end())->Min << "  " << (--locations.end())->Range << std::endl;
+                        //std::cout << (--locations.end())->Min << "  " << (--locations.end())->Range << std::endl;
                     }
                     else{
                         cit->convert(*lit);
@@ -130,7 +127,7 @@ int main(){
                 }
             }
         }
-        std::cout << "#" << std::endl;
+        //std::cout << "#" << std::endl;
     }
 
     std::list<Location>::iterator minimum = locations.begin();
